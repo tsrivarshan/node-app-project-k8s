@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dasboard</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+            body{
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: white;
+                overflow: hidden;
+            }
+            .container{
+                width: 246px;
+                overflow: hidden;
+            }
+            .container .text{
+                position: relative;
+                color: #010718;
+                font-size: 30px;
+                font-weight: 600;
+            }
+            .text.sec-text:before{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: white;
+                border-left: 2px solid #010718;
+                animation: animate 4s steps(12) infinite;
+            }
+            @keyframes animate{
+                40%, 60%{
+                    left: calc(100% + 4px);
+                }
+                100%{
+                    left: 0%;
+                }
+            }
+            
+    </style>  
+</head>
+<body>
+    <div class="container">
+        <span class="text sec-text">This is Dasboard Page</span>
+    </div>
+    <div class="button">
+        <div class="content">
+          <i class="bx bx-cloud-download"></i>
+          <a href="/logout" class="button-text">Logout</a>
+        </div>
+    </div>
+
+    <script>
+        const text = document.querySelector(".sec-text");
+
+        const textLoad = () => {
+            setTimeout(() => {
+                text.textContent = "Dasboard Page";
+            }, 0);
+            setTimeout(() => {
+                text.textContent = "Dasboard Page";
+            }, 4000);
+            setTimeout(() => {
+                text.textContent = "Dasboard Page";
+            }, 8000); //1s = 1000 milliseconds
+        }
+        textLoad();
+        setInterval(textLoad, 12000);
+        const button = document.querySelector(".button");
+    button.addEventListener("click", () =>{
+      button.classList.add("active");
+      setTimeout(()=>{
+        button.classList.remove("active");
+        button.querySelector("i").classList.replace("bx-cloud-download", "bx-check-circle")
+        button.querySelector("span").innerText = "Logged Out";
+      },6000);
+    });
+
+    </script>    
+</body>
+</html>
