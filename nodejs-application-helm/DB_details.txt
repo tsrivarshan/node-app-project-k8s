@@ -1,2 +1,0 @@
-DB_HOST=nodeappdb.cdcqh1rrv5l3.us-east-1.rds.amazonaws.com
-DB_USER=admin 
