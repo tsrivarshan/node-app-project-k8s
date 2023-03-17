@@ -1,0 +1,62 @@
+apiVersion: {{ .Values.apiversion }}
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}-dep
+  labels:
+{{ toYaml .Values.labels | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+{{ toYaml .Values.labels | indent 6 }}       
+  template:
+    metadata:
+      name: {{ .Values.app_name }}-app
+      namespace: {{ .Values.namespace }}
+      labels:
+{{ toYaml .Values.labels | indent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.app_name }}-container
+        image: {{ .Values.imageTag }} 
+        resources:
+          requests:
+              cpu: "{{ .Values.request_cpu }}"
+              memory: {{ .Values.request_memory }}
+          limits:
+              cpu: "{{ .Values.limit_cpu }}"
+              memory: {{ .Values.limit_memory }}      
+        ports:
+          - containerPort: {{ .Values.port }}
+        env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretFile }}
+                key: DB_HOST
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretFile }}
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretFile }}
+                key: DB_PASSWORD
+          - name: DB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretFile }}
+                key: DB_DATABASE
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretFile }}
+                key: DB_PORT
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretFile }}
+                key: PORT
+

@@ -1,0 +1,28 @@
+apiversion: apps/v1
+app_name: nodejs-application
+labels:
+  app: nodejs-backend-app
+imageTag: public.ecr.aws/e5q6g0d1/nodeapp:1.0
+port: 4000
+secretFile: secret-nodeapp
+replicaCount: 1
+svc_type: LoadBalancer
+limit_cpu: 1
+limit_memory: 1Gi
+request_cpu: 1
+request_memory: 1Gi
+namespace: node-app
+hpa:
+  apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  StabilizationWindowSeconds: 10
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 25
+  Policies:
+    Value: 1
+    PeriodSeconds: 40
+    Value1: 40
+    PeriodSeconds1: 40
+
+
